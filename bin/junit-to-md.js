@@ -20,9 +20,8 @@ glob("**/TEST*.xml", async function (err, files) {
     var suites = xmlDoc.find("//testsuite");
     suites.forEach((suite) => {
       totalTests += parseInt(suite.attr("tests").value());
-      failures = suite.attr("failures") != null ? suite.attr("failures") : suite.attr("errors");
-      //failedTests += parseInt(suite.attr("failures").value());
-      failedTests += parseInt(failures);
+      let failureAttrib = suite.attr("failures") != null ? suite.attr("failures") : suite.attr("errors");
+      failedTests += parseInt(failureAttrib.value());
       var tests = suite.find("//testcase");
       tests.forEach((test) => {
         allTests.push(test)
@@ -77,7 +76,7 @@ function outputSummary() {
   console.log(" ");
   console.log("- " + totalTests + " Total test(s)");
   console.log("- " + (totalTests - failedTests) + " Successful test(s)");
-  console.log("- " + failedTests + " Failed test(s)");
+  console.log("> :no_entry_sign: " + failedTests + " Failed test(s)");
 }
 
 function outputSlowest(slowestCount) {
