@@ -20,7 +20,9 @@ glob("**/TEST*.xml", async function (err, files) {
     var suites = xmlDoc.find("//testsuite");
     suites.forEach((suite) => {
       totalTests += parseInt(suite.attr("tests").value());
-      failedTests += parseInt(suite.attr("failures").value());
+      failures = suite.attr("failures") != null ? suite.attr("failures") : suite.attr("errors");
+      //failedTests += parseInt(suite.attr("failures").value());
+      failedTests += parseInt(failures);
       var tests = suite.find("//testcase");
       tests.forEach((test) => {
         allTests.push(test)
