@@ -3,7 +3,7 @@ const fs = require("fs");
 //const glob = require("glob");
 const libxmljs = require("libxmljs2");
 
-import { readdir } from 'node:fs/promises';
+const readdir = fs.promises;
 
 try {
   const files = await readdir('./', { recursive: true });
