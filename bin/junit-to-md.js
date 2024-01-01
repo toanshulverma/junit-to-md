@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 const fs = require("fs");
-const glob = require("glob");
+//const glob = require("glob");
 const libxmljs = require("libxmljs2");
+
+import { readdir } from 'node:fs/promises';
+
+try {
+  const files = await readdir('./', { recursive: true });
+  console.log(files);
+} catch (err) {
+  console.error(err);
+} 
 
 let output = "status";
 if (process.argv.length > 2) {
@@ -14,7 +23,9 @@ let slowestCount = 5;
 let failedTestDetails = [];
 let allTests = [];
 
-glob("**/TEST*.xml", async function (err, files) {
+
+//glob("**/TEST*.xml", async function (err, files) { 
+/*
   for (let index = 0; index < files.length; index++) {
     var xmlDoc = libxmljs.parseXml(fs.readFileSync(files[index]));
     var suites = xmlDoc.find("//testsuite");
@@ -40,6 +51,7 @@ glob("**/TEST*.xml", async function (err, files) {
       });
     });
   }
+  
 
   if (output === "text") {
     outputText();
@@ -57,6 +69,8 @@ glob("**/TEST*.xml", async function (err, files) {
     }
   }
 });
+
+*/
 
 function outputText() {
   console.log("### Test Failures:");
