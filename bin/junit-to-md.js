@@ -3,11 +3,21 @@ const fs = require("fs");
 //const glob = require("glob");
 const libxmljs = require("libxmljs2");
 
-const readdir = fs.promises;
-
-try {
-  const files = await readdir('./', { recursive: true });
-  console.log(files);
+try {  
+  fs.promises.readdir(process.cwd())
+ 
+    // If promise resolved and
+    // data are fetched
+    .then(filenames => {
+        for (let filename of filenames) {
+            console.log(filename)
+        }
+    })
+ 
+    // If promise is rejected
+    .catch(err => {
+        console.log(err)
+    })
 } catch (err) {
   console.error(err);
 } 
